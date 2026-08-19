@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#07070b" />
+  <meta name="description" content="Imposter X — realtime social deduction with built-in voice and video." />
+  <title>Imposter X</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preconnect" href="https://esm.sh" crossorigin />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Imposter X home"><span>IMPOSTER</span><b>X</b></a>
+      <div class="status-wrap"><span id="gameStatus" class="status-dot">● GAME LIVE</span><span id="callStatus" class="call-status">CALL OFF</span></div>
+    </header>
+
+    <section id="callDock" class="call-dock" hidden>
+      <div class="call-head">
+        <div><div class="eyebrow">Live room</div><strong id="callTitle">Voice & video</strong></div>
+        <button id="collapseCall" class="icon-btn" aria-label="Collapse call">⌃</button>
+      </div>
+      <div id="mediaGrid" class="media-grid"></div>
+      <div id="callJoinPanel" class="call-join-panel"></div>
+      <div id="callControls" class="call-controls" hidden>
+        <button id="micBtn" class="call-btn">🎙 <span>Mic</span></button>
+        <button id="camBtn" class="call-btn">📹 <span>Camera</span></button>
+        <button id="chatBtn" class="call-btn">💬 <span>Chat</span></button>
+        <button id="reactBtn" class="call-btn">✨ <span>React</span></button>
+        <button id="leaveCallBtn" class="call-btn danger">☎ <span>Call</span></button>
+      </div>
+      <div id="reactionTray" class="reaction-tray" hidden>
+        <button>😂</button><button>💀</button><button>👀</button><button>🤡</button><button>🔥</button><button>😈</button>
+      </div>
+      <div id="chatPanel" class="chat-panel" hidden>
+        <div id="chatMessages" class="chat-messages"></div>
+        <form id="chatForm" class="chat-form"><input id="chatInput" maxlength="180" placeholder="Say something…" autocomplete="off"/><button>Send</button></form>
+      </div>
+      <div id="reactionLayer" class="reaction-layer" aria-hidden="true"></div>
+      <div id="audioSink" hidden></div>
+    </section>
+
+    <section id="app" class="card" aria-live="polite"></section>
+  </main>
+  <div id="toast" class="toast" hidden></div>
+  <script src="https://cdn.jsdelivr.net/npm/livekit-client@2.21.0/dist/livekit-client.umd.min.js"></script>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
