@@ -1,0 +1,10 @@
+{
+  "name": "imposter-x",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Realtime social deduction with built-in voice and video.",
+  "dependencies": {
+    "livekit-server-sdk": "2.17.0"
+  }
+}
