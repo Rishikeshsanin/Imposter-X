@@ -1,0 +1,44 @@
+name: Bootstrap baseline migrations
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/bootstrap-migrations.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Copy Imposter Live baseline migrations
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p supabase/migrations
+          files=(
+            001_schema_and_themes.sql
+            002_cards_popular_people.sql
+            003_cards_mixed.sql
+            004_cards_movies.sql
+            005_cards_tollywood_movies.sql
+            006_cards_tollywood_actors.sql
+            007_cards_animals.sql
+            008_cards_movies_tv.sql
+            009_room_core_functions.sql
+            010_round_host_functions.sql
+            011_voting_lifecycle_and_grants.sql
+          )
+          for f in "${files[@]}"; do
+            curl -fsSL "https://raw.githubusercontent.com/Rishikeshsanin/Imposter-Live/main/supabase/migrations/$f" -o "supabase/migrations/$f"
+          done
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add supabase/migrations
+          if ! git diff --cached --quiet; then
+            git commit -m "Add baseline Supabase migrations"
+            git push
+          fi
