@@ -2,8 +2,6 @@ import { AccessToken } from 'livekit-server-sdk';
 
 const SUPABASE_URL = 'https://eafzaolucefpyxvjfjwr.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_VHs21VCKNj2zfK2L04cqDA_HgDNRUx6';
-const DEFAULT_LIVEKIT_URL = 'wss://imposter-x-pu5xkyfx.livekit.cloud';
-const DEFAULT_LIVEKIT_API_KEY = 'APIrNkvWTJQBSej';
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
@@ -29,9 +27,11 @@ export default async function handler(req, res) {
     if (state.room.play_mode !== 'remote') return res.status(400).json({ error: 'Calls are disabled for same-room games.' });
 
     const apiSecret = process.env.LIVEKIT_API_SECRET;
-    const apiKey = process.env.LIVEKIT_API_KEY || DEFAULT_LIVEKIT_API_KEY;
-    const serverUrl = process.env.LIVEKIT_URL || DEFAULT_LIVEKIT_URL;
-    if (!apiSecret) return res.status(503).json({ error: 'Voice/video is not configured yet.' });
+    const apiKey = process.env.LIVEKIT_API_KEY;
+    const serverUrl = process.env.LIVEKIT_URL;
+    if (!apiSecret || !apiKey || !serverUrl) {
+      return res.status(503).json({ error: 'Voice/video is not configured yet.' });
+    }
 
     const roomName = `imposter-x-${state.room.id}`;
     const token = new AccessToken(apiKey, apiSecret, {
