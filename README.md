@@ -2,7 +2,7 @@
 
 **Imposter X** is a realtime social-deduction party game with built-in low-latency voice and optional video. Play together in the same physical room, or create a remote room and keep the entire game — call, secret roles, voting, reactions, chat and scoring — in one place.
 
-> Target production URL: `https://imposter-x.vercel.app`
+> Production URL: `https://imposter-x.vercel.app`
 
 ## ✨ What makes X different
 
@@ -47,15 +47,15 @@ The static client and server-side token endpoint deploy together on Vercel.
 
 ## 🔐 Required environment variables
 
-Create these in your Vercel project:
+Create these in your Vercel project and keep the secret server-side:
 
 ```env
-LIVEKIT_URL=wss://imposter-x-pu5xkyfx.livekit.cloud
-LIVEKIT_API_KEY=APIrNkvWTJQBSej
+LIVEKIT_URL=YOUR_LIVEKIT_WEBSOCKET_URL
+LIVEKIT_API_KEY=YOUR_LIVEKIT_API_KEY
 LIVEKIT_API_SECRET=YOUR_PRIVATE_LIVEKIT_SECRET
 ```
 
-`LIVEKIT_API_SECRET` must remain server-side.
+For production, store `LIVEKIT_API_SECRET` as a sensitive Vercel environment variable and redeploy after changes.
 
 ## 🃏 Themes
 
